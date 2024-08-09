@@ -13,18 +13,17 @@
 # limitations under the License.
 
 from datetime import datetime
-import os
-import logging
-import textwrap
 import inspect
-from typing import Optional, Callable, List, Dict, Any, Tuple, Union
 import json
-import threading
+import logging
+import os
 import queue
+import textwrap
+import threading
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
-from kubeflow.training.constants import constants
 from kubeflow.training import models
-
+from kubeflow.training.constants import constants
 
 logger = logging.getLogger(__name__)
 
@@ -69,7 +68,7 @@ def is_running_in_k8s():
 
 def get_default_target_namespace():
     if not is_running_in_k8s():
-        return "default"
+        return constants.DEFAULT_NAMESPACE
     with open("/var/run/secrets/kubernetes.io/serviceaccount/namespace", "r") as f:
         return f.readline()
 

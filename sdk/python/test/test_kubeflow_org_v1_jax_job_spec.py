@@ -16,11 +16,11 @@ import unittest
 import datetime
 
 from kubeflow.training.models import *
-from kubeflow.training.models.kubeflow_org_v1_mx_job_spec import KubeflowOrgV1MXJobSpec  # noqa: E501
+from kubeflow.training.models.kubeflow_org_v1_jax_job_spec import KubeflowOrgV1JAXJobSpec  # noqa: E501
 from kubeflow.training.rest import ApiException
 
-class TestKubeflowOrgV1MXJobSpec(unittest.TestCase):
-    """KubeflowOrgV1MXJobSpec unit test stubs"""
+class TestKubeflowOrgV1JAXJobSpec(unittest.TestCase):
+    """KubeflowOrgV1JAXJobSpec unit test stubs"""
 
     def setUp(self):
         pass
@@ -29,15 +29,14 @@ class TestKubeflowOrgV1MXJobSpec(unittest.TestCase):
         pass
 
     def make_instance(self, include_optional):
-        """Test KubeflowOrgV1MXJobSpec
+        """Test KubeflowOrgV1JAXJobSpec
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = kubeflow.training.models.kubeflow_org_v1_mx_job_spec.KubeflowOrgV1MXJobSpec()  # noqa: E501
+        # model = kubeflow.training.models.kubeflow_org_v1_jax_job_spec.KubeflowOrgV1JAXJobSpec()  # noqa: E501
         if include_optional :
-            return KubeflowOrgV1MXJobSpec(
-                job_mode = '0', 
-                mx_replica_specs = {
+            return KubeflowOrgV1JAXJobSpec(
+                jax_replica_specs = {
                     'key' : kubeflow_org_v1_replica_spec.KubeflowOrgV1ReplicaSpec(
                         replicas = 56, 
                         restart_policy = '0', 
@@ -59,9 +58,8 @@ class TestKubeflowOrgV1MXJobSpec(unittest.TestCase):
                     ttl_seconds_after_finished = 56, )
             )
         else :
-            return KubeflowOrgV1MXJobSpec(
-                job_mode = '0',
-                mx_replica_specs = {
+            return KubeflowOrgV1JAXJobSpec(
+                jax_replica_specs = {
                     'key' : kubeflow_org_v1_replica_spec.KubeflowOrgV1ReplicaSpec(
                         replicas = 56, 
                         restart_policy = '0', 
@@ -83,8 +81,8 @@ class TestKubeflowOrgV1MXJobSpec(unittest.TestCase):
                     ttl_seconds_after_finished = 56, ),
         )
 
-    def testKubeflowOrgV1MXJobSpec(self):
-        """Test KubeflowOrgV1MXJobSpec"""
+    def testKubeflowOrgV1JAXJobSpec(self):
+        """Test KubeflowOrgV1JAXJobSpec"""
         inst_req_only = self.make_instance(include_optional=False)
         inst_req_and_optional = self.make_instance(include_optional=True)
 

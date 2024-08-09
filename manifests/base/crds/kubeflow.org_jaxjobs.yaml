@@ -4,14 +4,14 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: mxjobs.kubeflow.org
+  name: jaxjobs.kubeflow.org
 spec:
   group: kubeflow.org
   names:
-    kind: MXJob
-    listKind: MXJobList
-    plural: mxjobs
-    singular: mxjob
+    kind: JAXJob
+    listKind: JAXJobList
+    plural: jaxjobs
+    singular: jaxjob
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
@@ -24,7 +24,7 @@ spec:
     name: v1
     schema:
       openAPIV3Schema:
-        description: MXJob is the Schema for the mxjobs API
+        description: JAXJob Represents a JAXJob resource.
         properties:
           apiVersion:
             description: |-
@@ -44,14 +44,9 @@ spec:
           metadata:
             type: object
           spec:
-            description: MXJobSpec defines the desired state of MXJob
+            description: Specification of the desired state of the JAXJob.
             properties:
-              jobMode:
-                description: |-
-                  JobMode specify the kind of MXjob to do. Different mode may have
-                  different MXReplicaSpecs request
-                type: string
-              mxReplicaSpecs:
+              jaxReplicaSpecs:
                 additionalProperties:
                   description: ReplicaSpec is a description of the replica
                   properties:
@@ -7283,13 +7278,10 @@ spec:
                       type: object
                   type: object
                 description: |-
-                  MXReplicaSpecs is map of ReplicaType and ReplicaSpec
-                  specifies the MX replicas to run.
+                  A map of JAXReplicaType (type) to ReplicaSpec (value). Specifies the JAX cluster configuration.
                   For example,
                     {
-                      "Scheduler": ReplicaSpec,
-                      "Server": ReplicaSpec,
-                      "Worker": ReplicaSpec,
+                      "Worker": JAXReplicaSpec,
                     }
                 type: object
               runPolicy:
@@ -7360,12 +7352,12 @@ spec:
                     type: integer
                 type: object
             required:
-            - jobMode
-            - mxReplicaSpecs
+            - jaxReplicaSpecs
             type: object
           status:
-            description: JobStatus represents the current observed state of the training
-              Job.
+            description: |-
+              Most recently observed status of the JAXJob.
+              Read-only (modified by the system).
             properties:
               completionTime:
                 description: |-
@@ -7498,4 +7490,8 @@ spec:
     served: true
     storage: true
     subresources:
+      scale:
+        labelSelectorPath: .status.replicaStatuses.Worker.selector
+        specReplicasPath: .spec.jaxReplicaSpecs.Worker.replicas
+        statusReplicasPath: .status.replicaStatuses.Worker.active
       status: {}

@@ -12,15 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from kubeflow.training import models
-from typing import Union, Dict
+from typing import Dict, Union
+
 from kubeflow.storage_initializer.constants import INIT_CONTAINER_MOUNT_PATH
+from kubeflow.training import models
 
 # How long to wait in seconds for requests to the Kubernetes API Server.
 DEFAULT_TIMEOUT = 120
 
 # The default PIP index URL to download Python packages.
 DEFAULT_PIP_INDEX_URL = "https://pypi.org/simple"
+
+# The default namespace in case namespace not define explicitly
+DEFAULT_NAMESPACE = "default"
 
 # Annotation to disable Istio sidecar.
 ISTIO_SIDECAR_INJECTION = "sidecar.istio.io/inject"
@@ -84,12 +88,7 @@ STORAGE_INITIALIZER_VOLUME_MOUNT = models.V1VolumeMount(
     name=STORAGE_INITIALIZER,
     mount_path=INIT_CONTAINER_MOUNT_PATH,
 )
-STORAGE_INITIALIZER_VOLUME = models.V1Volume(
-    name=STORAGE_INITIALIZER,
-    persistent_volume_claim=models.V1PersistentVolumeClaimVolumeSource(
-        claim_name=STORAGE_INITIALIZER
-    ),
-)
+
 TRAINER_TRANSFORMER_IMAGE = "docker.io/kubeflow/trainer-huggingface"
 
 # TFJob constants.
@@ -113,17 +112,6 @@ PYTORCHJOB_PLURAL = "pytorchjobs"
 PYTORCHJOB_CONTAINER = "pytorch"
 PYTORCHJOB_REPLICA_TYPES = (REPLICA_TYPE_MASTER.lower(), REPLICA_TYPE_WORKER.lower())
 PYTORCHJOB_BASE_IMAGE = "docker.io/pytorch/pytorch:2.1.2-cuda11.8-cudnn8-runtime"
-
-# MXJob constants
-MXJOB_KIND = "MXJob"
-MXJOB_MODEL = "KubeflowOrgV1MXJob"
-MXJOB_PLURAL = "mxjobs"
-MXJOB_CONTAINER = "mxnet"
-MXJOB_REPLICA_TYPES = (
-    REPLICA_TYPE_SCHEDULER.lower(),
-    REPLICA_TYPE_SERVER.lower(),
-    REPLICA_TYPE_WORKER.lower(),
-)
 
 # XGBoostJob constants
 XGBOOSTJOB_KIND = "XGBoostJob"
@@ -165,12 +153,6 @@ JOB_PARAMETERS = {
         "container": PYTORCHJOB_CONTAINER,
         "base_image": PYTORCHJOB_BASE_IMAGE,
     },
-    MXJOB_KIND: {
-        "model": MXJOB_MODEL,
-        "plural": MXJOB_PLURAL,
-        "container": MXJOB_CONTAINER,
-        "base_image": "TODO",
-    },
     XGBOOSTJOB_KIND: {
         "model": XGBOOSTJOB_MODEL,
         "plural": XGBOOSTJOB_PLURAL,
@@ -198,7 +180,6 @@ JOB_MODELS = tuple([d["model"] for d in list(JOB_PARAMETERS.values())])
 JOB_MODELS_TYPE = Union[
     models.KubeflowOrgV1TFJob,
     models.KubeflowOrgV1PyTorchJob,
-    models.KubeflowOrgV1MXJob,
     models.KubeflowOrgV1XGBoostJob,
     models.KubeflowOrgV1MPIJob,
     models.KubeflowOrgV1PaddleJob,

@@ -16,11 +16,11 @@ import unittest
 import datetime
 
 from kubeflow.training.models import *
-from kubeflow.training.models.kubeflow_org_v1_mx_job_list import KubeflowOrgV1MXJobList  # noqa: E501
+from kubeflow.training.models.kubeflow_org_v1_jax_job_list import KubeflowOrgV1JAXJobList  # noqa: E501
 from kubeflow.training.rest import ApiException
 
-class TestKubeflowOrgV1MXJobList(unittest.TestCase):
-    """KubeflowOrgV1MXJobList unit test stubs"""
+class TestKubeflowOrgV1JAXJobList(unittest.TestCase):
+    """KubeflowOrgV1JAXJobList unit test stubs"""
 
     def setUp(self):
         pass
@@ -29,22 +29,21 @@ class TestKubeflowOrgV1MXJobList(unittest.TestCase):
         pass
 
     def make_instance(self, include_optional):
-        """Test KubeflowOrgV1MXJobList
+        """Test KubeflowOrgV1JAXJobList
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = kubeflow.training.models.kubeflow_org_v1_mx_job_list.KubeflowOrgV1MXJobList()  # noqa: E501
+        # model = kubeflow.training.models.kubeflow_org_v1_jax_job_list.KubeflowOrgV1JAXJobList()  # noqa: E501
         if include_optional :
-            return KubeflowOrgV1MXJobList(
+            return KubeflowOrgV1JAXJobList(
                 api_version = '0', 
                 items = [
-                    kubeflow_org_v1_mx_job.KubeflowOrgV1MXJob(
+                    kubeflow_org_v1_jax_job.KubeflowOrgV1JAXJob(
                         api_version = '0', 
                         kind = '0', 
                         metadata = None, 
-                        spec = kubeflow_org_v1_mx_job_spec.KubeflowOrgV1MXJobSpec(
-                            job_mode = '0', 
-                            mx_replica_specs = {
+                        spec = kubeflow_org_v1_jax_job_spec.KubeflowOrgV1JAXJobSpec(
+                            jax_replica_specs = {
                                 'key' : kubeflow_org_v1_replica_spec.KubeflowOrgV1ReplicaSpec(
                                     replicas = 56, 
                                     restart_policy = '0', 
@@ -90,15 +89,14 @@ class TestKubeflowOrgV1MXJobList(unittest.TestCase):
                 metadata = None
             )
         else :
-            return KubeflowOrgV1MXJobList(
+            return KubeflowOrgV1JAXJobList(
                 items = [
-                    kubeflow_org_v1_mx_job.KubeflowOrgV1MXJob(
+                    kubeflow_org_v1_jax_job.KubeflowOrgV1JAXJob(
                         api_version = '0', 
                         kind = '0', 
                         metadata = None, 
-                        spec = kubeflow_org_v1_mx_job_spec.KubeflowOrgV1MXJobSpec(
-                            job_mode = '0', 
-                            mx_replica_specs = {
+                        spec = kubeflow_org_v1_jax_job_spec.KubeflowOrgV1JAXJobSpec(
+                            jax_replica_specs = {
                                 'key' : kubeflow_org_v1_replica_spec.KubeflowOrgV1ReplicaSpec(
                                     replicas = 56, 
                                     restart_policy = '0', 
@@ -142,8 +140,8 @@ class TestKubeflowOrgV1MXJobList(unittest.TestCase):
                     ],
         )
 
-    def testKubeflowOrgV1MXJobList(self):
-        """Test KubeflowOrgV1MXJobList"""
+    def testKubeflowOrgV1JAXJobList(self):
+        """Test KubeflowOrgV1JAXJobList"""
         inst_req_only = self.make_instance(include_optional=False)
         inst_req_and_optional = self.make_instance(include_optional=True)
 
